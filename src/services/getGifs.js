@@ -5,6 +5,10 @@ export default function getGifs ({keyword = 'cat'} = {}){
     
     return fetch(apiURL).then(r => r.json()).then(resp => {
         const { data } =  resp
-        const gifs = data.map(image => image.images.downsized_medium.url)
+        const gifs = data.map(image =>{
+            const {images, title, id} = image
+            const { url }= images.downsized_medium
+            return { title, id, url }
+        })
         return gifs
 })}
